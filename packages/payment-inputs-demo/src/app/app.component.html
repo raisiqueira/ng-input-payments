@@ -1,0 +1,23 @@
+<main>
+  <form [formGroup]="form">
+  <div>
+    <label for="card-number">Card Number</label>
+    <input id="card-number" formControlName="cardNumber" jstCardNumber>
+  </div>
+
+  <div>
+    <label for="card-date">Card Date</label>
+    <input id="card-date" formControlName="cardValidate" jstCardExpireDate>
+  </div>
+
+  <div>
+    <label for="card-cvv">Card CVV</label>
+    <input id="card-cvv" formControlName="cardNumber" jstCardCvv>
+  </div>
+  </form>
+  <p>cardValue: {{ form.get('cardNumber').value }}</p>
+
+  <p>cvcValue: {{ form.get('cardCvc').value }}</p>
+
+  <p>dateValue: {{ form.get('cardValidate').value }}</p>
+</main>

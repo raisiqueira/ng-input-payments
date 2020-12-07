@@ -1,5 +1,5 @@
 {
-  "npmScope": "payment-inputs",
+  "npmScope": "@justa",
   "affected": {
     "defaultBase": "master"
   },
@@ -22,7 +22,18 @@
       }
     }
   },
-  "projects": {},
+  "projects": {
+    "payment-inputs": {
+      "tags": []
+    },
+    "payment-inputs-demo": {
+      "tags": ["demo-app"]
+    },
+    "payment-inputs-demo-e2e": {
+      "tags": [],
+      "implicitDependencies": ["payment-inputs-demo"]
+    }
+  },
   "workspaceLayout": {
     "appsDir": "packages",
     "libsDir": "packages"
