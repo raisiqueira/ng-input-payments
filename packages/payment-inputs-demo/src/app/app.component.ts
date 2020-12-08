@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { CardTypeService } from '@justa/payment-inputs';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CardTypeService, PaymentInputValidators } from '@justa/payment-inputs';
 
 @Component({
   selector: 'jst-root',
@@ -14,9 +14,9 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      cardNumber: [null],
-      cardCvc: [null],
-      cardValidate: [null],
+      cardNumber: [null, Validators.compose([PaymentInputValidators.cardNumber()])],
+      cardCvc: [null, Validators.compose([PaymentInputValidators.expiryDate()])],
+      cardValidate: [null, Validators.compose([PaymentInputValidators.CVC()])],
     });
   }
 }

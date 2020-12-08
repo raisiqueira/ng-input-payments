@@ -15,11 +15,16 @@
       <input id="card-cvv" formControlName="cardCvc" jstCardCvv />
     </div>
   </form>
-  <p>cardValue: {{ form.get('cardNumber').value }}</p>
 
-  <p>cvcValue: {{ form.get('cardCvc').value }}</p>
+  <div>
+    <p>cardValue: {{ form.get('cardNumber').value }}</p>
 
-  <p>dateValue: {{ form.get('cardValidate').value }}</p>
+    <p>cvcValue: {{ form.get('cardCvc').value }}</p>
+
+    <p>dateValue: {{ form.get('cardValidate').value }}</p>
+  </div>
+
+  <div>errors: {{ form.errors | json }}</div>
 
   <div>
     <table>
