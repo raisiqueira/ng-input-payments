@@ -3,6 +3,9 @@ import { AbstractControl, ControlValueAccessor, NgControl } from '@angular/forms
 import { CardTypeService } from '../services/card-type.service';
 import utils, { TIMEOUT_SECONDS } from '../utils';
 
+/**
+ * Directive to format and validate a card expiry date
+ */
 @Directive({
   selector: 'input[jstCardExpireDate][formControlName],input[formControl][jstCardExpireDate]',
   host: {
@@ -118,6 +121,7 @@ export class CardExpireDateDirective implements ControlValueAccessor, OnInit, On
   setDisabledState?(isDisabled: boolean): void {
     this._renderer.setProperty(this._el, 'disabled', isDisabled);
     this._control.disable({ onlySelf: true });
+    this._ngControl.valueAccessor.setDisabledState(isDisabled);
   }
 
   /**

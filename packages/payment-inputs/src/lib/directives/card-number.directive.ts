@@ -82,10 +82,16 @@ export class CardNumberDirective implements ControlValueAccessor, OnInit, OnDest
     const cardNumberFormatted = clearSpaces(cardNumber);
     const cardValue = utils.formatters.formatCardNumber(cardNumberFormatted);
     const cardType = utils.cardTypes.getCardTypeByValue(cardNumberFormatted);
+    const cardNumberError = utils.validators.getCardNumberError(cardValue, null);
 
     // update card type value
     this._cardTypeService.setCardType(cardType);
-    this._checkCardNumberMaxLength(rawValue);
+
+    // check errors
+    if (!cardNumberError) {
+      this._checkCardNumberMaxLength(rawValue);
+      this._control.setValidators(null);
+    }
 
     // update ng control value
     this._rendererTimeout = window?.setTimeout(() => {
@@ -117,6 +123,7 @@ export class CardNumberDirective implements ControlValueAccessor, OnInit, OnDest
   setDisabledState?(isDisabled: boolean): void {
     this._renderer.setProperty(this._el, 'disabled', isDisabled);
     this._control.disable({ onlySelf: true });
+    this._ngControl.valueAccessor.setDisabledState(isDisabled);
   }
 
   /**
@@ -129,7 +136,7 @@ export class CardNumberDirective implements ControlValueAccessor, OnInit, OnDest
     const hasReachedMaxLength = utils.validators.hasCardNumberReachedMaxLength(cardNumberFormatted);
     if (hasReachedMaxLength) {
       event.preventDefault();
-      this._cardTypeService.cardExpireRef?.nativeElement?.focus();
+      this._cardTypeService.cardExpiryRef?.nativeElement?.focus();
     }
   }
 

@@ -14,6 +14,9 @@ import { CardTypeService } from '../services/card-type.service';
 import utils, { TIMEOUT_SECONDS } from '../utils';
 import clearSpaces from '../utils/clear-spaces';
 
+/**
+ * Directive to format and validate a card CVC
+ */
 @Directive({
   selector: 'input[formControlName][jstCardCvv],input[formControl][jstCardCvv]',
   host: {
@@ -102,7 +105,9 @@ export class CardCvvDirective implements ControlValueAccessor, OnInit, AfterView
     const value = (event?.target as HTMLInputElement)?.value;
     if (event.key.toLowerCase() === utils.BACKSPACE_KEY_CODE && !utils.isValue(value)) {
       // focus into card number field case expiry date is empty
-      this._cardTypeService?.cardExpireRef?.nativeElement?.focus();
+      this._cardTypeService?.cardExpiryRef?.nativeElement?.focus();
+      this._ngControl.viewToModelUpdate(null);
+      this._ngControl.valueAccessor.writeValue(null);
     }
   }
 
@@ -114,12 +119,11 @@ export class CardCvvDirective implements ControlValueAccessor, OnInit, AfterView
     const cvcValue = (rawValue.target as HTMLInputElement)?.value || '';
     const cvcValueFormatted = clearSpaces(cvcValue);
     const reg = new RegExp(`^[0-9]{${this._cvvMaskLength}}`, 'g');
-    const cvcmask = cvcValueFormatted?.match(reg);
-    console.log(`mask: `, cvcmask);
-    // this._rendererTimeout = window?.setTimeout(() => {
-    //   this._ngControl.viewToModelUpdate(cvcmask);
-    //   this._ngControl.valueAccessor.writeValue(cvcmask);
-    // }, TIMEOUT_SECONDS);
+    const cvcmask = cvcValueFormatted?.match(reg)?.join();
+    this._rendererTimeout = window?.setTimeout(() => {
+      this._ngControl.viewToModelUpdate(cvcmask);
+      this._ngControl.valueAccessor.writeValue(cvcmask);
+    }, TIMEOUT_SECONDS);
   }
 
   /**
@@ -145,6 +149,7 @@ export class CardCvvDirective implements ControlValueAccessor, OnInit, AfterView
   setDisabledState?(isDisabled: boolean): void {
     this._renderer.setProperty(this._el, 'disabled', isDisabled);
     this._control.disable({ onlySelf: true });
+    this._ngControl.valueAccessor.setDisabledState(isDisabled);
   }
 
   /**

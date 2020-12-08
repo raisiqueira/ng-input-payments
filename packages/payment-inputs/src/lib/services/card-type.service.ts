@@ -7,23 +7,35 @@ export class CardTypeService {
   private _cardType$ = new BehaviorSubject<CardTypesModel>(undefined);
 
   private _cardNumberRef: ElementRef;
-  private _cardExpireRef: ElementRef;
+  private _cardExpiryRef: ElementRef;
   private _cardCVVRef: ElementRef;
 
-  constructor() { }
+  constructor() {}
 
+  /**
+   * Getter for card type observable
+   */
   get cardType(): Observable<CardTypesModel> {
     return this._cardType$.asObservable();
   }
 
+  /**
+   * Getter for card number input ref
+   */
   get cardNumberRef(): ElementRef {
     return this._cardNumberRef;
   }
 
-  get cardExpireRef(): ElementRef {
-    return this._cardExpireRef;
+  /**
+   * Getter for card expiry date input ref
+   */
+  get cardExpiryRef(): ElementRef {
+    return this._cardExpiryRef;
   }
 
+  /**
+   * Getter for card CVC input ref
+   */
   get cardCVVRef(): ElementRef {
     return this._cardCVVRef;
   }
@@ -51,7 +63,7 @@ export class CardTypeService {
    * @template E - Type of HTML Element
    */
   setCardExpireRef<E = HTMLInputElement>(el: ElementRef<E>): void {
-    this._cardExpireRef = el;
+    this._cardExpiryRef = el;
   }
 
   /**

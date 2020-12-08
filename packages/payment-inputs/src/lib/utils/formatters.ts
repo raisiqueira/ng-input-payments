@@ -2,7 +2,7 @@ import * as cardTypes from './card-types';
 
 /**
  * @description format card number based on card type list per card BIN
- * @param cardNumber {string} card number form html input
+ * @param cardNumber {string} - card number form html input
  */
 export const formatCardNumber = (cardNumber: string): string => {
   const cardType = cardTypes.getCardTypeByValue(cardNumber);
@@ -19,7 +19,7 @@ export const formatCardNumber = (cardNumber: string): string => {
     if (execResult) {
       return execResult
         .splice(1, 3)
-        .filter(x => x)
+        .filter((x) => x)
         .join(' ');
     }
   }
@@ -29,7 +29,7 @@ export const formatCardNumber = (cardNumber: string): string => {
 
 /**
  * @description Format expiry date based on card BIN
- * @param event {unknown}
+ * @param event {unknown} - Event from card date expiry date
  * @returns string
  */
 export const formatExpiry = (event: any): string => {
@@ -51,7 +51,7 @@ export const formatExpiry = (event: any): string => {
     return `01 / `;
   }
 
-  expiry = expiry.match(/(\d{1,2})/g) || [] as any;
+  expiry = expiry.match(/(\d{1,2})/g) || ([] as any);
   if (expiry?.length === 1) {
     if (!eventData && prevExpiry.includes('/')) {
       return expiry[0] as string;
@@ -61,7 +61,8 @@ export const formatExpiry = (event: any): string => {
     }
   }
   if (expiry?.length > 2) {
-    const [, month = null, year = null] = (expiry as any).join('').match(/^(\d{2}).*(\d{2})$/) || [];
+    const [, month = null, year = null] =
+      (expiry as any).join('').match(/^(\d{2}).*(\d{2})$/) || [];
     return [month, year].join(' / ');
   }
   return (expiry as any).join(' / ');

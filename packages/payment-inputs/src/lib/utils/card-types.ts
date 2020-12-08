@@ -6,6 +6,7 @@ export const DEFAULT_CARD_FORMAT = /(\d{1,4})/g;
 
 /**
  * Card Types per BIN
+ * @internal
  */
 export const CARD_TYPES: CardTypesModel[] = [
   {
@@ -132,7 +133,7 @@ export const CARD_TYPES: CardTypesModel[] = [
 
 /**
  * Get card type by card value
- * @param value -card number value
+ * @param value - card number value
  * @returns object with all properties from card type
  */
 export const getCardTypeByValue = (value: string) =>
@@ -140,7 +141,7 @@ export const getCardTypeByValue = (value: string) =>
 
 /**
  * Get card type by type (ie.: visa, elo, hipercard)
- * @param value -card type (ie.: visa, elo, hipercard, amex)
+ * @param value - card type (ie.: visa, elo, hipercard, amex)
  * @returns object with all properties from card type
  */
 export const getCardTypeByType = (type) =>
