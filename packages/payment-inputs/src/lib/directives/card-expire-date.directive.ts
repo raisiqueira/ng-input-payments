@@ -4,10 +4,12 @@ import { CardTypeService } from '../services/card-type.service';
 import utils, { TIMEOUT_SECONDS } from '../utils';
 
 @Directive({
-  selector: 'input[jstCardExpireDate][formControlName],input[formControl][jstCardExpireDate]'
+  selector: 'input[jstCardExpireDate][formControlName],input[formControl][jstCardExpireDate]',
+  host: {
+    '(blur)': 'onTouched()',
+  },
 })
 export class CardExpireDateDirective implements ControlValueAccessor, OnInit, OnDestroy {
-
   onChange?: (event: any) => void = () => {};
   onTouched?: (event: any) => void = () => {};
 
@@ -18,9 +20,10 @@ export class CardExpireDateDirective implements ControlValueAccessor, OnInit, On
     private _elementRef: ElementRef<HTMLInputElement>,
     private _ngControl: NgControl,
     private _cardTypeService: CardTypeService,
-  ) { }
+  ) {}
 
   ngOnInit() {
+    this._setupInput();
     this._cardTypeService.setCardExpireRef(this._elementRef);
   }
 
@@ -31,10 +34,10 @@ export class CardExpireDateDirective implements ControlValueAccessor, OnInit, On
   }
 
   /**
-  * get the current html input from element ref
-  * @returns The native element from ref
-  * @private
-  */
+   * get the current html input from element ref
+   * @returns The native element from ref
+   * @private
+   */
   get _el(): HTMLInputElement {
     return this._elementRef.nativeElement;
   }
@@ -67,6 +70,19 @@ export class CardExpireDateDirective implements ControlValueAccessor, OnInit, On
   }
 
   /**
+   * Listener the keydown to check when backspace is pressed
+   * @param event {KeyboardEvent} - The keyboard event
+   */
+  @HostListener('keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent) {
+    const value = (event?.target as HTMLInputElement)?.value;
+    if (event.key.toLowerCase() === utils.BACKSPACE_KEY_CODE && !utils.isValue(value)) {
+      // focus into card number field case expiry date has empty
+      this._cardTypeService?.cardNumberRef?.nativeElement?.focus();
+    }
+  }
+
+  /**
    * Writes a new value to the element.
    * @param rawValue - value from input
    */
@@ -76,7 +92,7 @@ export class CardExpireDateDirective implements ControlValueAccessor, OnInit, On
     this._rendererTimeout = window?.setTimeout(() => {
       this._ngControl.viewToModelUpdate(expireValue);
       this._ngControl.valueAccessor.writeValue(expireValue);
-    }, TIMEOUT_SECONDS)
+    }, TIMEOUT_SECONDS);
   }
 
   /**
@@ -102,5 +118,16 @@ export class CardExpireDateDirective implements ControlValueAccessor, OnInit, On
   setDisabledState?(isDisabled: boolean): void {
     this._renderer.setProperty(this._el, 'disabled', isDisabled);
     this._control.disable({ onlySelf: true });
+  }
+
+  /**
+   * setup input with some attrs for better user experience
+   */
+  private _setupInput(): void {
+    this._renderer.setProperty(this._el, 'autoComplete', 'cc-exp');
+    this._renderer.setProperty(this._el, 'aria-label', 'Expiry date in format MM YY');
+    this._renderer.setProperty(this._el, 'id', 'ccExpireDate');
+    this._renderer.setProperty(this._el, 'name', 'ccExpireDate');
+    this._renderer.setProperty(this._el, 'type', 'tel');
   }
 }

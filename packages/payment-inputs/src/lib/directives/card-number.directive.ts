@@ -11,10 +11,9 @@ import { CardTypeService } from '../services/card-type.service';
   selector: 'input[jstCardNumber][formControlName],input[formControl][jstCardNumber]',
   host: {
     '(blur)': 'onTouched()',
-  }
+  },
 })
 export class CardNumberDirective implements ControlValueAccessor, OnInit, OnDestroy {
-
   onChange?: (event: any) => void = () => {};
   onTouched?: (event: any) => void = () => {};
 
@@ -25,9 +24,10 @@ export class CardNumberDirective implements ControlValueAccessor, OnInit, OnDest
     private _elementRef: ElementRef<HTMLInputElement>,
     private _ngControl: NgControl,
     private _cardTypeService: CardTypeService,
-    ) { }
+  ) {}
 
   ngOnInit() {
+    this._setupInput();
     this._cardTypeService.setCardNumberRef(this._elementRef);
   }
 
@@ -38,10 +38,10 @@ export class CardNumberDirective implements ControlValueAccessor, OnInit, OnDest
   }
 
   /**
-  * get the current html input from element ref
-  * @returns The native element from ref
-  * @private
-  */
+   * get the current html input from element ref
+   * @returns The native element from ref
+   * @private
+   */
   get _el(): HTMLInputElement {
     return this._elementRef.nativeElement;
   }
@@ -85,6 +85,7 @@ export class CardNumberDirective implements ControlValueAccessor, OnInit, OnDest
 
     // update card type value
     this._cardTypeService.setCardType(cardType);
+    this._checkCardNumberMaxLength(rawValue);
 
     // update ng control value
     this._rendererTimeout = window?.setTimeout(() => {
@@ -116,5 +117,30 @@ export class CardNumberDirective implements ControlValueAccessor, OnInit, OnDest
   setDisabledState?(isDisabled: boolean): void {
     this._renderer.setProperty(this._el, 'disabled', isDisabled);
     this._control.disable({ onlySelf: true });
+  }
+
+  /**
+   * Check if card number has reached max value and focus into expire date field
+   * @param event {KeyboardEvent} - Keyboard event from the card number input
+   */
+  private _checkCardNumberMaxLength(event: KeyboardEvent) {
+    const cardNumber = (event?.target as HTMLInputElement)?.value || '';
+    const cardNumberFormatted = clearSpaces(cardNumber);
+    const hasReachedMaxLength = utils.validators.hasCardNumberReachedMaxLength(cardNumberFormatted);
+    if (hasReachedMaxLength) {
+      event.preventDefault();
+      this._cardTypeService.cardExpireRef?.nativeElement?.focus();
+    }
+  }
+
+  /**
+   * setup input with some attrs for better user experience
+   */
+  private _setupInput(): void {
+    this._renderer.setProperty(this._el, 'autoComplete', 'cc-number');
+    this._renderer.setProperty(this._el, 'aria-label', 'Card Number');
+    this._renderer.setProperty(this._el, 'id', 'ccCardNumber');
+    this._renderer.setProperty(this._el, 'name', 'ccCardNumber');
+    this._renderer.setProperty(this._el, 'type', 'tel');
   }
 }

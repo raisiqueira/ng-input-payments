@@ -17,8 +17,8 @@ export const CARD_TYPES: CardTypesModel[] = [
     lengths: [16, 18, 19],
     code: {
       name: 'CVV',
-      length: 3
-    }
+      length: 3,
+    },
   },
   {
     displayName: 'Mastercard',
@@ -29,8 +29,8 @@ export const CARD_TYPES: CardTypesModel[] = [
     lengths: [16],
     code: {
       name: 'CVC',
-      length: 3
-    }
+      length: 3,
+    },
   },
   {
     displayName: 'American Express',
@@ -41,8 +41,8 @@ export const CARD_TYPES: CardTypesModel[] = [
     lengths: [15],
     code: {
       name: 'CID',
-      length: 4
-    }
+      length: 4,
+    },
   },
   {
     displayName: 'Diners Club',
@@ -53,8 +53,8 @@ export const CARD_TYPES: CardTypesModel[] = [
     lengths: [14, 16, 19],
     code: {
       name: 'CVV',
-      length: 3
-    }
+      length: 3,
+    },
   },
   {
     displayName: 'Discover',
@@ -65,8 +65,8 @@ export const CARD_TYPES: CardTypesModel[] = [
     lengths: [16, 19],
     code: {
       name: 'CID',
-      length: 3
-    }
+      length: 3,
+    },
   },
   {
     displayName: 'JCB',
@@ -77,8 +77,8 @@ export const CARD_TYPES: CardTypesModel[] = [
     lengths: [16, 17, 18, 19],
     code: {
       name: 'CVV',
-      length: 3
-    }
+      length: 3,
+    },
   },
   {
     displayName: 'UnionPay',
@@ -89,8 +89,8 @@ export const CARD_TYPES: CardTypesModel[] = [
     lengths: [14, 15, 16, 17, 18, 19],
     code: {
       name: 'CVN',
-      length: 3
-    }
+      length: 3,
+    },
   },
   {
     displayName: 'Maestro',
@@ -101,8 +101,8 @@ export const CARD_TYPES: CardTypesModel[] = [
     lengths: [12, 13, 14, 15, 16, 17, 18, 19],
     code: {
       name: 'CVC',
-      length: 3
-    }
+      length: 3,
+    },
   },
   {
     displayName: 'Elo',
@@ -113,8 +113,8 @@ export const CARD_TYPES: CardTypesModel[] = [
     lengths: [16],
     code: {
       name: 'CVE',
-      length: 3
-    }
+      length: 3,
+    },
   },
   {
     displayName: 'Hipercard',
@@ -125,10 +125,23 @@ export const CARD_TYPES: CardTypesModel[] = [
     lengths: [16],
     code: {
       name: 'CVC',
-      length: 3
-    }
-  }
+      length: 3,
+    },
+  },
 ];
 
-export const getCardTypeByValue = value => CARD_TYPES.filter(cardType => cardType.startPattern.test(value))[0];
-export const getCardTypeByType = type => CARD_TYPES.filter(cardType => cardType.type === type)[0];
+/**
+ * Get card type by card value
+ * @param value -card number value
+ * @returns object with all properties from card type
+ */
+export const getCardTypeByValue = (value: string) =>
+  CARD_TYPES.filter((cardType) => cardType.startPattern.test(value))[0];
+
+/**
+ * Get card type by type (ie.: visa, elo, hipercard)
+ * @param value -card type (ie.: visa, elo, hipercard, amex)
+ * @returns object with all properties from card type
+ */
+export const getCardTypeByType = (type) =>
+  CARD_TYPES.filter((cardType) => cardType.type === type)[0];

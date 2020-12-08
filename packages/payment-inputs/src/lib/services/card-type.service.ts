@@ -39,24 +39,27 @@ export class CardTypeService {
   /**
    * update value of element ref for the Card Number
    * @param el - ElementRef of the Card Number
+   * @template E - Type of HTML Element
    */
-  setCardNumberRef(el: ElementRef): void {
+  setCardNumberRef<E = HTMLInputElement>(el: ElementRef<E>): void {
     this._cardNumberRef = el;
   }
 
   /**
    * update value of element ref for the Date Expire Input
    * @param el - ElementRef of the Card Expire
+   * @template E - Type of HTML Element
    */
-  setCardExpireRef(el: ElementRef): void {
+  setCardExpireRef<E = HTMLInputElement>(el: ElementRef<E>): void {
     this._cardExpireRef = el;
   }
 
   /**
    * update value of element ref for the CVV Input
    * @param el - ElementRef of the Card CVV
+   * @template E - Type of HTML Element
    */
-  setCardCVVRef(el: ElementRef): void {
+  setCardCVVRef<E = HTMLInputElement>(el: ElementRef<E>): void {
     this._cardCVVRef = el;
   }
 }

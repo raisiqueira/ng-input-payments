@@ -16,9 +16,9 @@ export const YEAR_OUT_OF_RANGE = 'Expiry year cannot be in the past';
 export const DATE_OUT_OF_RANGE = 'Expiry date cannot be in the past';
 
 /**
- * @description Check if a input value has reached max value based on card BIN
- * @param currentValue {string}
- * @returns boolean
+ * Check if a input value has reached max value based on card BIN
+ * @param currentValue - current card number value without spaces
+ * @returns if card number has reached max lenght
  */
 export const hasCardNumberReachedMaxLength = (currentValue: string): boolean => {
   const cardType = cardTypes?.getCardTypeByValue(currentValue);
@@ -26,17 +26,17 @@ export const hasCardNumberReachedMaxLength = (currentValue: string): boolean => 
 };
 
 /**
- * @description check if value is a numeric type
- * @param e {KeyboardEvent} Event from input
- * @returns boolean
+ * check if value is a numeric type
+ * @param e {KeyboardEvent} - Event from input
+ * @returns if a value is a numeric value
  */
 export const isNumeric = (e: KeyboardEvent): boolean => {
   return /^\d*$/?.test(e?.key);
 };
 
 /**
- * @description Validate card number luhn
- * @param cardNumber {string}
+ * Validate card number luhn
+ * @param cardNumber - card number without spaces
  */
 export const validateLuhn = (cardNumber: string): boolean => {
   return (
@@ -53,10 +53,10 @@ export const validateLuhn = (cardNumber: string): boolean => {
 };
 
 /**
- * 
- * @param cardNumber {string}
- * @param cardNumberValidator {fn}
- * @param errorMessageObject {object}
+ * Get all error messages from card number
+ * @param cardNumber - card number without spaces
+ * @param cardNumberValidator - fn to validate a card number
+ * @param errorMessageObject - object with all error messages
  * @returns returns error message for card number
  */
 export const getCardNumberError = (cardNumber: string, cardNumberValidator, { errorMessages = {} } = {} as Record<string, any>) => {
@@ -82,10 +82,10 @@ export const getCardNumberError = (cardNumber: string, cardNumberValidator, { er
 };
 
 /**
- * 
- * @param expiryDate {string}
- * @param expiryValidator {fn}
- * @param errorMessageObject {object}
+ * get all error messages from card expire date
+ * @param expiryDate - expire date
+ * @param expiryValidator - fn to validade a card expire date
+ * @param errorMessageObject - object with all error message
  * @returns error message for date validation
  */
 export const getExpiryDateError = (expiryDate, expiryValidator, { errorMessages = {} } = {} as Record<string, any>) => {
@@ -114,10 +114,10 @@ export const getExpiryDateError = (expiryDate, expiryValidator, { errorMessages 
 };
 
 /**
- * 
- * @param cvc {string}
- * @param cvcValidator {fn} validator fn for cvc
- * @param errorMessageObject {object}
+ * get all error messages from card cvc
+ * @param cvc - cvc number
+ * @param cvcValidator - validator fn for cvc
+ * @param errorMessageObject - object with all error message
  * @returns error message for  cvc
  */
 export const getCVCError = (cvc: string, cvcValidator, { cardType, errorMessages = {} } = {} as Record<string, any>) => {
@@ -137,9 +137,9 @@ export const getCVCError = (cvc: string, cvcValidator, { cardType, errorMessages
 };
 
 /**
- * 
- * @param zip {string} zip code
- * @param errorMessageObject {object}
+ * get all error messages from card cvc
+ * @param zip - zip code
+ * @param errorMessageObject - object with all error message
  * @returns error message for zip code
  */
 export const getZIPError = (zip, { errorMessages = {} } = {} as Record<string, any>) => {

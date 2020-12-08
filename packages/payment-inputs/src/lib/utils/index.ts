@@ -17,12 +17,21 @@ export const ENTER_KEY_NUMBER = ENTER;
  */
 export const TIMEOUT_SECONDS = 0;
 
+/**
+ * check if a value is valid
+ * @param value - value to check if has value
+ */
+function isValue(value: number | string | null | undefined): value is number | string {
+  return !(value == null || value === '' || value !== value);
+}
+
 export default {
   cardTypes,
   formatters,
   validators,
+  isValue,
   BACKSPACE_KEY_CODE,
   BACKSPACE_KEY_NUMBER,
   ENTER_KEY_CODE,
   ENTER_KEY_NUMBER,
-}
+};
