@@ -18,7 +18,5 @@ export class AppComponent implements OnInit {
       cardCvc: [null],
       cardValidate: [null],
     });
-    this.form.valueChanges.subscribe(value => console.log(`form value: `, value));
-    // this.cardType.cardType.subscribe(data => console.log(`Type: `, data));
   }
 }

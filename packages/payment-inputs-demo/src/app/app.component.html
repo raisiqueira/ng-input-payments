@@ -1,23 +1,77 @@
 <main>
   <form [formGroup]="form">
-  <div>
-    <label for="card-number">Card Number</label>
-    <input id="card-number" formControlName="cardNumber" jstCardNumber>
-  </div>
+    <div>
+      <label for="card-number">Card Number</label>
+      <input id="card-number" formControlName="cardNumber" jstCardNumber />
+    </div>
 
-  <div>
-    <label for="card-date">Card Date</label>
-    <input id="card-date" formControlName="cardValidate" jstCardExpireDate>
-  </div>
+    <div>
+      <label for="card-date">Card Date</label>
+      <input id="card-date" formControlName="cardValidate" jstCardExpireDate />
+    </div>
 
-  <div>
-    <label for="card-cvv">Card CVV</label>
-    <input id="card-cvv" formControlName="cardNumber" jstCardCvv>
-  </div>
+    <div>
+      <label for="card-cvv">Card CVV</label>
+      <input id="card-cvv" formControlName="cardCvc" jstCardCvv />
+    </div>
   </form>
   <p>cardValue: {{ form.get('cardNumber').value }}</p>
 
   <p>cvcValue: {{ form.get('cardCvc').value }}</p>
 
   <p>dateValue: {{ form.get('cardValidate').value }}</p>
+
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th>Brand</th>
+          <th>Name</th>
+          <th>Code</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>American Express</td>
+          <td>amex</td>
+          <td>378282246310005 &amp; 378282749798722</td>
+        </tr>
+        <tr>
+          <td>Aura</td>
+          <td>aura</td>
+          <td>5078601870000127985</td>
+        </tr>
+        <tr>
+          <td>Diners Club</td>
+          <td>diners</td>
+          <td>30569309025904</td>
+        </tr>
+        <tr>
+          <td>Discover</td>
+          <td>discover</td>
+          <td>6011111111111117</td>
+        </tr>
+        <tr>
+          <td>Elo</td>
+          <td>elo</td>
+          <td>6362970000457013 &amp; 6362971747129170</td>
+        </tr>
+        <tr>
+          <td>Hipercard</td>
+          <td>hipercard</td>
+          <td>6062825624254001 &amp; 6062823936268330</td>
+        </tr>
+        <tr>
+          <td>Visa</td>
+          <td>visa</td>
+          <td>4111111111111111 &amp; 4111115666052208</td>
+        </tr>
+        <tr>
+          <td>MasterCard</td>
+          <td>mastercard</td>
+          <td>5555555555554444 &amp; 5555556355564617</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </main>
