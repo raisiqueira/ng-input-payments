@@ -1,6 +1,6 @@
 {
-  "name": "payment-inputs",
-  "version": "0.0.0",
+  "name": "ngx-payment-inputs",
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "nx": "nx",
@@ -47,8 +47,12 @@
     "@angular-devkit/build-angular": "~0.1001.3",
     "@angular/compiler-cli": "^10.1.0",
     "@angular/language-service": "^10.1.0",
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "@commitlint/prompt-cli": "^11.0.0",
     "@nrwl/angular": "^10.4.4",
     "@nrwl/cli": "10.4.4",
+    "@nrwl/cypress": "10.4.4",
     "@nrwl/eslint-plugin-nx": "10.4.4",
     "@nrwl/jest": "10.4.4",
     "@nrwl/tao": "10.4.4",
@@ -58,18 +62,25 @@
     "@typescript-eslint/eslint-plugin": "4.3.0",
     "@typescript-eslint/parser": "4.3.0",
     "codelyzer": "~5.0.1",
+    "cypress": "^5.5.0",
     "dotenv": "6.2.0",
     "eslint": "7.10.0",
     "eslint-config-prettier": "6.0.0",
+    "husky": "^4.3.5",
     "jest": "26.2.2",
     "jest-preset-angular": "8.3.1",
     "ng-packagr": "^10.1.0",
     "prettier": "2.1.2",
+    "pretty-quick": "^3.1.0",
     "ts-jest": "26.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~6.0.0",
-    "typescript": "~4.0.3",
-    "cypress": "^5.5.0",
-    "@nrwl/cypress": "10.4.4"
+    "typescript": "~4.0.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }
