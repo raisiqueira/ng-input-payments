@@ -1,4 +1,5 @@
 import * as cardTypes from './card-types';
+import clearSpaces from './clear-spaces';
 
 const MONTH_REGEX = /(0[1-9]|1[0-2])/;
 
@@ -22,7 +23,7 @@ export const DATE_OUT_OF_RANGE = 'Expiry date cannot be in the past';
  */
 export const hasCardNumberReachedMaxLength = (currentValue: string): boolean => {
   const cardType = cardTypes?.getCardTypeByValue(currentValue);
-  return cardType && currentValue?.length >= cardType?.lengths[cardType?.lengths?.length - 1];
+  return cardType && cardType.lengths.some((l) => clearSpaces(currentValue).length === l);
 };
 
 /**
@@ -43,11 +44,11 @@ export const validateLuhn = (cardNumber: string): boolean => {
     cardNumber
       .split('')
       .reverse()
-      .map(digit => parseInt(digit, 10))
+      .map((digit) => parseInt(digit, 10))
       .map((digit, idx) => (idx % 2 ? digit * 2 : digit))
-      .map(digit => (digit > 9 ? (digit % 10) + 1 : digit))
+      .map((digit) => (digit > 9 ? (digit % 10) + 1 : digit))
       .reduce((accum, digit) => (accum += digit)) %
-    10 ===
+      10 ===
     0
   );
 };
@@ -59,7 +60,11 @@ export const validateLuhn = (cardNumber: string): boolean => {
  * @param errorMessageObject - object with all error messages
  * @returns returns error message for card number
  */
-export const getCardNumberError = (cardNumber: string, cardNumberValidator, { errorMessages = {} } = {} as Record<string, any>) => {
+export const getCardNumberError = (
+  cardNumber: string,
+  cardNumberValidator,
+  { errorMessages = {} } = {} as Record<string, any>,
+) => {
   if (!cardNumber) {
     return errorMessages.emptyCardNumber || EMPTY_CARD_NUMBER;
   }
@@ -88,7 +93,11 @@ export const getCardNumberError = (cardNumber: string, cardNumberValidator, { er
  * @param errorMessageObject - object with all error message
  * @returns error message for date validation
  */
-export const getExpiryDateError = (expiryDate, expiryValidator, { errorMessages = {} } = {} as Record<string, any>) => {
+export const getExpiryDateError = (
+  expiryDate,
+  expiryValidator,
+  { errorMessages = {} } = {} as Record<string, any>,
+) => {
   if (!expiryDate) {
     return errorMessages.emptyExpiryDate || EMPTY_EXPIRY_DATE;
   }
@@ -102,7 +111,10 @@ export const getExpiryDateError = (expiryDate, expiryValidator, { errorMessages 
     if (parseInt(year) < new Date().getFullYear()) {
       return errorMessages.yearOutOfRange || YEAR_OUT_OF_RANGE;
     }
-    if (parseInt(year) === new Date().getFullYear() && parseInt(month) < new Date().getMonth() + 1) {
+    if (
+      parseInt(year) === new Date().getFullYear() &&
+      parseInt(month) < new Date().getMonth() + 1
+    ) {
       return errorMessages.dateOutOfRange || DATE_OUT_OF_RANGE;
     }
     if (expiryValidator) {
@@ -120,7 +132,11 @@ export const getExpiryDateError = (expiryDate, expiryValidator, { errorMessages 
  * @param errorMessageObject - object with all error message
  * @returns error message for  cvc
  */
-export const getCVCError = (cvc: string, cvcValidator, { cardType, errorMessages = {} } = {} as Record<string, any>) => {
+export const getCVCError = (
+  cvc: string,
+  cvcValidator,
+  { cardType, errorMessages = {} } = {} as Record<string, any>,
+) => {
   if (!cvc) {
     return errorMessages.emptyCVC || EMPTY_CVC;
   }
