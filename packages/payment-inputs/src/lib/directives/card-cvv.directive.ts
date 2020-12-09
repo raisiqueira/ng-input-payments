@@ -5,6 +5,7 @@ import {
   HostListener,
   OnDestroy,
   OnInit,
+  Optional,
   Renderer2,
 } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, NgControl } from '@angular/forms';
@@ -39,7 +40,7 @@ export class CardCvvDirective implements ControlValueAccessor, OnInit, AfterView
   constructor(
     private _renderer: Renderer2,
     private _elementRef: ElementRef<HTMLInputElement>,
-    private _ngControl: NgControl,
+    @Optional() private _ngControl: NgControl,
     private _cardTypeService: CardTypeService,
   ) {}
 
@@ -106,8 +107,6 @@ export class CardCvvDirective implements ControlValueAccessor, OnInit, AfterView
     if (event.key.toLowerCase() === utils.BACKSPACE_KEY_CODE && !utils.isValue(value)) {
       // focus into card number field case expiry date is empty
       this._cardTypeService?.cardExpiryRef?.nativeElement?.focus();
-      this._ngControl.viewToModelUpdate(null);
-      this._ngControl.valueAccessor.writeValue(null);
     }
   }
 

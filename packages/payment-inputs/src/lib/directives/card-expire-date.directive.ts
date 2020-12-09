@@ -1,4 +1,12 @@
-import { Directive, ElementRef, HostListener, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  HostListener,
+  OnDestroy,
+  OnInit,
+  Optional,
+  Renderer2,
+} from '@angular/core';
 import { AbstractControl, ControlValueAccessor, NgControl } from '@angular/forms';
 import { CardTypeService } from '../services/card-type.service';
 import utils, { TIMEOUT_SECONDS } from '../utils';
@@ -21,7 +29,7 @@ export class CardExpireDateDirective implements ControlValueAccessor, OnInit, On
   constructor(
     private _renderer: Renderer2,
     private _elementRef: ElementRef<HTMLInputElement>,
-    private _ngControl: NgControl,
+    @Optional() private _ngControl: NgControl,
     private _cardTypeService: CardTypeService,
   ) {}
 

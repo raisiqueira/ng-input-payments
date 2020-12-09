@@ -1,4 +1,5 @@
 {
+  "npmScope": "ngx-payment-inputs",
   "affected": {
     "defaultBase": "master"
   },
