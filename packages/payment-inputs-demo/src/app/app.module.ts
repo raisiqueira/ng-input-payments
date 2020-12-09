@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { PaymentInputsModule } from '@justa/payment-inputs';
+import { PaymentInputsModule } from 'ngx-payment-inputs';
 
 @NgModule({
   declarations: [AppComponent],

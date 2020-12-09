@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CardTypeService, PaymentInputValidators } from '@justa/payment-inputs';
+import { CardTypeService, PaymentInputValidators } from 'ngx-payment-inputs';
 
 @Component({
   selector: 'jst-root',
