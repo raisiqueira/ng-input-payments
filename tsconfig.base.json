@@ -16,7 +16,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@justa/payment-inputs": ["packages/payment-inputs/src/index.ts"]
+      "ngx-payment-inputs": ["packages/payment-inputs/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
