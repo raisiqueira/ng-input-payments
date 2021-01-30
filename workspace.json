@@ -22,7 +22,10 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["packages/payment-inputs/src/**/*.ts"]
+            "lintFilePatterns": [
+              "packages/payment-inputs/src/**/*.ts",
+              "packages/payment-inputs/src/**/*.html"
+            ]
           }
         },
         "test": {
@@ -30,7 +33,8 @@
           "options": {
             "jestConfig": "packages/payment-inputs/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/packages/payment-inputs"]
         }
       },
       "schematics": {
@@ -99,7 +103,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -117,7 +120,8 @@
                 }
               ]
             }
-          }
+          },
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -152,7 +156,8 @@
           "options": {
             "jestConfig": "packages/payment-inputs-demo/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/packages/payment-inputs-demo"]
         }
       }
     },
