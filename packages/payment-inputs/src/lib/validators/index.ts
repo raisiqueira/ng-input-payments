@@ -2,6 +2,7 @@ import { AbstractControl, ValidatorFn } from '@angular/forms';
 import utils from '../utils';
 
 /**
+ * @dynamic
  * Class with validators to use with Payment Input directives and reactive forms.
  * All class methods are static.
  *
