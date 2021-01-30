@@ -32,6 +32,9 @@
     "payment-inputs-demo-e2e": {
       "tags": [],
       "implicitDependencies": ["payment-inputs-demo"]
+    },
+    "workspace": {
+      "tags": []
     }
   },
   "workspaceLayout": {
