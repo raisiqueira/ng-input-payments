@@ -1,6 +1,6 @@
 {
   "name": "ngx-payment-inputs",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A set of Angular Directives to validate and format credit card inputs.",
   "license": "MIT",
   "author": "Rai Siqueira <rai93siqueira@gmail.com>",
