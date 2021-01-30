@@ -117,8 +117,8 @@ export class CardCvvDirective implements ControlValueAccessor, OnInit, AfterView
   writeValue(rawValue: KeyboardEvent): void {
     const cvcValue = (rawValue.target as HTMLInputElement)?.value || '';
     const cvcValueFormatted = clearSpaces(cvcValue);
-    const reg = new RegExp(`^[0-9]{${this._cvvMaskLength}}`, 'g');
-    const cvcmask = cvcValueFormatted?.match(reg)?.join();
+    const reg = new RegExp(`([0-9]{${this._cvvMaskLength}})`, 'g');
+    const cvcmask = cvcValueFormatted?.replace(reg, '$1');
     this._rendererTimeout = window?.setTimeout(() => {
       this._ngControl.viewToModelUpdate(cvcmask);
       this._ngControl.valueAccessor.writeValue(cvcmask);
