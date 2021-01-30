@@ -24,8 +24,6 @@ yarn add ngx-payment-inputs
 
 ## Usage
 
-Are you lazy? Go to [Public API spec](#public-apis).
-
 Import the main module into your feature module (example.: `app.module.ts`):
 
 ```diff
